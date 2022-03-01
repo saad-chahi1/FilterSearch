@@ -1,0 +1,65 @@
+{
+  "cargo-syncs": [
+    {
+      "nom": "navire 1",
+      "contrat": "XXXRT1",
+      "id": 1
+    }
+  ],
+  "cargos": [
+    {
+      "id": 1,
+      "cargo_contrat": "CARG_XXX_1",
+      "cargo_number": "1/12",
+      "vessel": "CARGO1",
+      "quantity": 12,
+      "validation": true
+    },
+    {
+      "id": 2,
+      "cargo_contrat": "CARG_XXX_2",
+      "cargo_number": "2/12",
+      "vessel": "CARGO2",
+      "quantity": 12,
+      "validation": true
+    },
+    {
+      "id": 3,
+      "cargo_contrat": "CARG_XXX_3",
+      "cargo_number": "3/12",
+      "vessel": "CARGO3",
+      "quantity": 15,
+      "validation": true
+    },
+    {
+      "id": 4,
+      "cargo_contrat": "CARG_XXX_4",
+      "cargo_number": "4/12",
+      "vessel": "CARGO4",
+      "quantity": 7,
+      "validation": false
+    }
+  ],
+  "commencers": [
+    {
+      "nor": "AZE",
+      "debutAcc": "sss",
+      "finAcc": "zdzff",
+      "debutSurvey": "ss",
+      "finSurvey": "ssss",
+      "debutDech": "chahi",
+      "delivrance": "chch",
+      "id": 1
+    },
+    {
+      "nor": "AZE",
+      "debutAcc": "AZE",
+      "finAcc": "AZE",
+      "debutSurvey": "AZE",
+      "finSurvey": "AZE",
+      "debutDech": "AZE",
+      "delivrance": "AZE",
+      "id": 2
+    }
+  ]
+}

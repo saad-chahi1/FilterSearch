@@ -1,0 +1,194 @@
+<div class="m-5 mt-3">
+    <h4>Déchargement en cours : selection du navire</h4>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; let i= index"> 
+                {{i+1}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="dech">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button color="primary" (click)="OpenCommencerDialog(saisie)">
+                    DECH
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="arr">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button color="primary">
+                    ARR
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="even">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button color="primary">
+                    EVEN
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="finShift">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button color="primary">
+                    FIN SHIFT
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="finDech">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-raised-button color="primary">
+                    FIN DECH
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="cargo_contrat">
+          <th mat-header-cell *matHeaderCellDef> Nom du navire </th>
+          <td mat-cell *matCellDef="let element"> {{element.vessel}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="cargo_number">
+          <th mat-header-cell *matHeaderCellDef> Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.cargo_number}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="vessel">
+          <th mat-header-cell *matHeaderCellDef> N° de contart</th>
+          <td mat-cell *matCellDef="let element"> {{element.cargo_contrat}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> quantity </th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+</div>
+
+<div class="m-5 mt-3">
+    <h2>Assistant de saisie de déchargement</h2>
+    <form [formGroup]="formGroup">
+        <h4>Commencer un nouveau déchargement : recherche du navire</h4>
+
+        <div>
+            <mat-form-field class="inputGridItem mr-4" appearance="fill">
+                <mat-label>Nom du navire</mat-label>
+                <input matInput type="text" formControlName="nom">
+            </mat-form-field>
+    
+            <mat-form-field class="inputGridItem" appearance="fill">
+                <mat-label>Contrat</mat-label>
+                <input matInput type="text" formControlName="contrat">
+            </mat-form-field>
+        </div> 
+        <div>
+            <button mat-raised-button color="primary" (click)="rechercheNavire(template)">Recherche</button>
+        </div>
+
+    </form>
+</div>
+
+<!--Partie Popup consernant l'affichage de table pour commencer un déchargement-->
+<ng-template #template>
+    <table mat-table [dataSource]="tableDataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; let i= index"> 
+                {{i+1}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="cargo_contrat">
+          <th mat-header-cell *matHeaderCellDef> Nom du navire </th>
+          <td mat-cell *matCellDef="let element"> {{element.vessel}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="cargo_number">
+          <th mat-header-cell *matHeaderCellDef> Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.cargo_number}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="vessel">
+          <th mat-header-cell *matHeaderCellDef> N° de contart</th>
+          <td mat-cell *matCellDef="let element"> {{element.cargo_contrat}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> quantity </th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
+        <ng-container matColumnDef="commencer">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; let i= index"> 
+                <button mat-raised-button color="primary" 
+                   *ngIf="!element.validation" 
+                   (click)="CommencerDech(element)">
+                    commencer
+                </button>
+            </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="tableDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableDisplayedColumns;"></tr>
+      </table>
+      <mat-dialog-actions>
+        <button mat-button matDialogClose color="primary">Dismiss</button>
+      </mat-dialog-actions>
+</ng-template>
+
+<ng-template #saisie>
+    <form [formGroup]="formSaisie">
+        <div class="inputGridItem1 first-row">
+            <mat-form-field appearance="fill">
+                <mat-label>NOR</mat-label>
+                <input matInput type="text" formControlName="nor" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Début d'accostage</mat-label>
+                <input matInput type="text" formControlName="debutAcc" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Fin d'accostage</mat-label>
+                <input matInput type="text" formControlName="finAcc" required/>
+            </mat-form-field>         
+        </div>
+
+        <div class="inputGridItem1 first-row">
+            <mat-form-field appearance="fill">
+                <mat-label>Début draft survey</mat-label>
+                <input matInput type="text" formControlName="debutSurvey" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Fin draft survey</mat-label>
+                <input matInput type="text" formControlName="finSurvey" required/>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Début déchargement</mat-label>
+                <input matInput type="text" formControlName="debutDech" required/>
+            </mat-form-field>         
+        </div>
+
+        <div class="inputGridItem1 first-row">
+            <mat-form-field appearance="fill">
+                <mat-label>Délivrance de certificat de libre pratique</mat-label>
+                <input matInput type="text" formControlName="delivrance" required/>
+            </mat-form-field>        
+        </div>
+          <button mat-button color="primary"  [disabled]="!formSaisie.valid" (click)="CommencerDechargement()">Commencer le déchargement</button>
+    </form>
+    <mat-dialog-actions>
+        <button mat-button matDialogClose color="primary">Dismiss</button>
+      </mat-dialog-actions>
+</ng-template>
